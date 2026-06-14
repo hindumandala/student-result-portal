@@ -8,6 +8,15 @@
     <div class="container mt-4"> 
         <!-- container--adds left/right padding--> <!-- margin top size(0-5)-->
         <h1 class="mb-3">welcome {{ request.user.username }}!👋</h1>
+        
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <input type ="text" name="search" class="form-control" placeholder="search by name..." value="{{search_query}}">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href ="/" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
+
         <h4 class="mb-3">All Students</h4> <!-- margin bottom size(0-5)-->
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
@@ -33,7 +42,10 @@
             </tbody>
         </table>
         <a href="/add/" class="btn btn-success">+ Add Student</a>
-        <a href="/logout/" class="btn btn-secondary ms-2">logout</a>
+        <form method="post" action="/logout/" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary ms-2">Logout</button>
+        </form>
     </div>
     </body>
 </html>

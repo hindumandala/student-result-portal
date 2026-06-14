@@ -70,3 +70,13 @@ def student_result(request, id):
         'student': student,
         'results': results
     })
+
+def home(request):
+    query =request.GET.get('search','')
+    if query:
+        students=Student.objects.filter(name__icontains=query)
+    else:
+        students=Student.objects.all()
+    return render(request,'results/home.html',{'students':students,'search_query':query})
+    #render -->sends 2 things
+    #dictionary -->key:value -->{...}
