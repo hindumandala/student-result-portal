@@ -9,6 +9,33 @@
         <!-- container--adds left/right padding--> <!-- margin top size(0-5)-->
         <h1 class="mb-3">welcome {{ request.user.username }}!👋</h1>
         
+        <div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Total Students</h5>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Passed</h5>
+                <h2>{{ passed }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5 class="card-title">Failed</h5>
+                <h2>{{ failed }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
         <form method="get" class="mb-3">
             <div class="input-group">
                 <input type ="text" name="search" class="form-control" placeholder="search by name..." value="{{search_query}}">

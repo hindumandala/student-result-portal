@@ -71,12 +71,31 @@ def student_result(request, id):
         'results': results
     })
 
+@login_required
 def home(request):
-    query =request.GET.get('search','')
+    query = request.GET.get('search', '')
     if query:
-        students=Student.objects.filter(name__icontains=query)
+        students = Student.objects.filter(name__icontains=query)
     else:
-        students=Student.objects.all()
-    return render(request,'results/home.html',{'students':students,'search_query':query})
-    #render -->sends 2 things
-    #dictionary -->key:value -->{...}
+        students = Student.objects.all()
+    
+    # Dashboard stats
+    total_students = Student.objects.count()
+    
+    # Get all marks and calculate pass/fail
+    all_marks = Marks.objects.all()
+    passed = 0
+    failed = 0
+    for m in all_marks:
+        if m.marks >= 40:
+            passed += 1
+        else:
+            failed += 1
+    
+    return render(request, 'results/home.html', {
+        'students': students,
+        'search_query': query,
+        'total_students': total_students,
+        'passed': passed,
+        'failed': failed,
+    })
