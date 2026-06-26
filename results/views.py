@@ -35,14 +35,18 @@ def edit_student(request,id):
         form = StudentForm(instance=student)
     return render(request,'results/edit_student.html',{'form':form})   
 
-def add_marks(request,id):
+def add_marks(request, id):
     student = Student.objects.get(id=id)
-    if request.method=='POST':
-        subject= request.POST['subject']
-        mark_value= int(request.POST['marks'])
-        Marks.objects.create(student=student,subject=subject, marks=mark_value)
-        return redirect('student_result',id=id)
-    return render(request ,'results/add_marks.html',{'student':student})
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        mark_value = int(request.POST['marks'])
+        Marks.objects.update_or_create(
+            student=student,
+            subject=subject,
+            defaults={'marks': mark_value}
+        )
+        return redirect('student_result', id=id)
+    return render(request, 'results/add_marks.html', {'student': student})
 
 def calculate_grade(marks):
     if marks >= 90:
@@ -83,15 +87,17 @@ def home(request):
     total_students = Student.objects.count()
     
     # Get all marks and calculate pass/fail
-    all_marks = Marks.objects.all()
+    all_students = Student.objects.all()
     passed = 0
     failed = 0
-    for m in all_marks:
-        if m.marks >= 40:
-            passed += 1
-        else:
-            failed += 1
-    
+    for student in all_students:
+        marks = Marks.objects.filter(student=student)
+        if marks.exists():
+            if all(m.marks >= 40 for m in marks):
+                passed += 1
+            else:
+                failed += 1
+
     return render(request, 'results/home.html', {
         'students': students,
         'search_query': query,
@@ -99,3 +105,5 @@ def home(request):
         'passed': passed,
         'failed': failed,
     })
+
+    
