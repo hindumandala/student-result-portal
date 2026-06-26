@@ -1,0 +1,22 @@
+# Student Result Portal
+
+A web application built using Django to manage student results.
+
+## Features
+- Secure login and logout
+- Add, Edit, Delete student records
+- Add marks for each student
+- View student result
+
+## Tech Stack
+- Python, Django
+- SQLite
+- HTML, CSS
+
+## Live Demo
+https://student-result-portal-tvix.onrender.com
+
+## Setup Instructions
+1. Clone the repo
+2. Install requirements: `pip install -r requirements.txt`
+3. Run server: `python manage.py runserver`
