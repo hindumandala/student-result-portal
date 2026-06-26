@@ -4,9 +4,13 @@ A web application built using Django to manage student results.
 
 ## Features
 - Secure login and logout
+- Dashboard with total, passed, failed student count
 - Add, Edit, Delete student records
-- Add marks for each student
-- View student result
+- Add marks per subject
+- Subject-wise grade and pass/fail status
+- Overall result with failed subjects highlighted
+- Search students by name
+- Live deployed on Render
 
 ## Tech Stack
 - Python, Django
